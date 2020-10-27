@@ -1,0 +1,25 @@
+Fresh Mojaloop Installation Guide Step-by-Step
+
+1) sudo apt-get update
+2) sudo snap install microk8s --channel=1.15/stable --classic
+3) sudo snap install helm --channel=2.16/stable --classic
+4) sudo microk8s.enable storage
+5) sudo microk8s.enable ingress
+6) sudo microk8s.enable dns
+7) sudo microk8s.enable istio
+8) sudo snap alias microk8s.kubectl kubectl
+9) sudo snap install docker
+10) sudo kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+11) sudo microk8s.enable dashboard
+12) sudo kubectl get pod --namespace=kube-system |grep dashboard
+13) sudo helm init
+14) sudo kubectl -n kube-system get po | grep tiller
+15) sudo helm repo add mojaloop http://mojaloop.io/helm/repo/
+16) sudo helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
+17) sudo helm repo add kiwigrid https://kiwigrid.github.io
+18) sudo helm repo add elastic https://helm.elastic.co
+19) sudo helm repo update
+20) sudo helm --namespace kube-public install stable/nginx-ingress
+21) sudo helm --namespace demo --name moja install mojaloop/mojaloop
+22) sudo kubectl get pods --namespace=demo --watch
+23) watch it running
